@@ -1,4 +1,6 @@
+CUSTOM_IMG = lethee/nccl-pytorch:23.07.dev01
 IMG = nvcr.io/nvidia/pytorch:23.07-py3
+
 
 NNODES ?= 2
 NPROCS ?= 2
@@ -33,3 +35,8 @@ remote:
 	-e MASTER_ADDR=$(MASTER_ADDR) -e MASTER_PORT=$(MASTER_PORT) \
 	-e NNODES=$(NNODES) -e NPROCS=$(NPROCS) -e NODE_RANK=0 \
 	--name master -v `pwd`:/host $(IMG) bash -c 'curl -so- https://raw.githubusercontent.com/lethee/nccl-pytorch/refs/heads/main/run_remote.sh | bash'
+
+push: Dockerfile
+	docker build -t $(CUSTOM_IMG) .
+	docker push $(CUSTOM_IMG)
+	echo "Pushed $(CUSTOM_IMG)"
