@@ -1,4 +1,4 @@
-CUSTOM_IMG = lethee/nccl-pytorch:23.07.dev01
+CUSTOM_IMG = lethee/nccl-pytorch:23.07.dev03
 IMG = nvcr.io/nvidia/pytorch:23.07-py3
 
 

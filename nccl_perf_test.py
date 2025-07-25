@@ -13,7 +13,7 @@ def run_benchmark(rank, world_size, local_rank):
 
     print(f"dist.init_process_group(nccl, rank={rank}, world_size={world_size}) (local_rank={local_rank})")
     dist.init_process_group(backend="nccl", rank=rank, world_size=world_size)
-    torch.cuda.set_device(rank)
+    torch.cuda.set_device(local_rank)
 
     # 2. 테스트할 텐서 크기 정의 (단위: Bytes)
     tensor_sizes = [
