@@ -30,7 +30,7 @@ def run_benchmark(rank, world_size, local_rank):
     for size_bytes in tensor_sizes:
         # float32 텐서이므로 4바이트로 나눔
         num_elements = size_bytes // 4
-        tensor = torch.randn(num_elements, device=rank)
+        tensor = torch.randn(num_elements, device=local_rank)
         
         # 워밍업: 실제 측정 전 GPU 커널을 예열합니다.
         for _ in range(5):
