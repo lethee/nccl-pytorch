@@ -1,1 +1,2 @@
 echo Hello
+nvidia-smi
