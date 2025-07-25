@@ -26,3 +26,10 @@ worker:
 	-e MASTER_ADDR=$(MASTER_ADDR) -e MASTER_PORT=$(MASTER_PORT) \
 	-e NNODES=$(NNODES) -e NPROCS=$(NPROCS) -e NODE_RANK=1 \
 	--name worker -v `pwd`:/host $(IMG) /host/run.sh
+
+remote:
+	docker run -it --rm \
+	--net=host --gpus=all --shm-size=40G --ipc=host --ulimit memlock=-1 \
+	-e MASTER_ADDR=$(MASTER_ADDR) -e MASTER_PORT=$(MASTER_PORT) \
+	-e NNODES=$(NNODES) -e NPROCS=$(NPROCS) -e NODE_RANK=0 \
+	--name master -v `pwd`:/host $(IMG) bash -c 'curl -so- https://raw.githubusercontent.com/lethee/nccl-pytorch/refs/heads/main/run_remote.sh | bash'
